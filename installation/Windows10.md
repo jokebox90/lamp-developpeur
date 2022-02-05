@@ -119,6 +119,7 @@ sudo apt install -y \
   dnsutils \
   ftp \
   iproute2 \
+  lsof \
   python3-pip \
   net-tools \
   netcat \
