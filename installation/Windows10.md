@@ -116,6 +116,7 @@ sudo apt install -y git vim
 # Installe d'outils complémentaires (sauvent la vie)
 sudo apt install -y \
   apache2-utils \
+  curl \
   dnsutils \
   ftp \
   iproute2 \
