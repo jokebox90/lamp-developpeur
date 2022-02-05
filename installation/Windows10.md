@@ -1,6 +1,21 @@
-# Installation de Linux Apache MySQL PHP sur Windows 10
+# Installation de Linux Apache MySQL PHP
 
-## Activer les extensions de virtualisation dans Windows 10
+## Etapes d'installation
+
+[1. Activer les extensions de virtualisation](#activer-les-extensions-de-virtualisation)
+
+[2. Installation du gestionnaire de logiciels Chocolately](#installation-du-gestionnaire-de-logiciels-chocolately)
+
+[3. Installation des outils de développement](#installation-des-outils-de-développement)
+
+## Activer les extensions de virtualisation
+
+Ouvrir Powershell en tant qu'administrateur :
+
+1. Menu "Démarrer"
+2. Rechercher "powershell"
+3. Faire un Clic-droit sur Powershell
+4. Cliquer sur "Exécuter en tant qu'administrateur"
 
 ```
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
@@ -8,7 +23,7 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 
 > Important: Redémarer Windows
 
-## Installation de Chocolately, le gestionnaire de paquet Windows
+## Installation du gestionnaire de logiciels Chocolately
 
 Ouvrir Powershell en tant qu'administrateur :
 
@@ -25,7 +40,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 > Note: Garder la fenêtre Powershell ouverte pour la suite.
 
-## Installation des outils de développement pour Windows 10
+## Installation des outils de développement
 
 Ouvrir Powershell en tant qu'administrateur :
 
