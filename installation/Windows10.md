@@ -200,7 +200,7 @@ Important, cette étape permet de lier le dossier Web avec le répertoire de l'u
 ```bash
 # Création du lien avec le dossier Web
 sudo ln -s /var/www/html ~/Sites
-sudo chown -Rv $(id -u):$(id -g) Sites/
+sudo chown -Rv $(id -u):$(id -g) ~/Sites/
 
 # Donne des droits complet sur le serveur Web Apache
 sudo cp /etc/apache2/envvars /etc/apache2/envvars.$(date +'%Y-%m-%d')
@@ -226,7 +226,7 @@ Ensuite il est possible de démarrer VSCode ou naviguer dans le dossier Web.
 
 ```bash
 # Navigation dans les fichiers, Sites/ ==> http://localhost/
-cd Sites
+cd ~/Sites
 
 # Création du fichier d'information de PHP disponible ici ==> http://localhost/sysinfo.php
 echo '<?php phpinfo(); ?>' | tee sysinfo.php
