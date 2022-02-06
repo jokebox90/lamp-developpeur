@@ -161,8 +161,9 @@ sudo apt install -y \
 # Installe PHP et ses extensions courantes
 sudo apt install -y \
   php7.4-apcu \
-  php7.4-curl \
   php7.4-bcmath \
+  php7.4-curl \
+  php7.4-dev \
   php7.4-gd \
   php7.4-gmp \
   php-imagick \
@@ -170,7 +171,6 @@ sudo apt install -y \
   php7.4-mysql \
   php7.4-mbstring \
   php-pear \
-  php7.4-xdebug \
   php7.4-xml \
   php7.4-xmlrpc \
   php7.4-zip
@@ -192,14 +192,42 @@ Important, cette étape permet de lier le dossier Web avec le répertoire de l'u
 
 
 ```bash
+# Création du lien avec le dossier Web
 sudo ln -s /var/www/html ~/Sites
 sudo chown -Rv $(id -u):$(id -g) Sites/
+
+# Donne des droits complet sur le serveur Web Apache
+sudo cp /etc/apache2/envvars /etc/apache2/envvars.$(date +'%Y-%m-%d')
+sudo sed -i 's/www-data/'$USER'/g' /etc/apache2/envvars
+
+# Activation de PHP xDebug
+sudo pecl install xdebug
+
+# Active le debugger de PHP
+sudo tee -a /etc/php/7.4/apache2/php.ini <<EOM
+
+[XDebug]
+xdebug.mode = debug,develop
+xdebug.force_display_errors = 1
+xdebug.force_error_reporting = 1
+xdebug.start_with_request = 1
+EOM
+
+sudo /etc/init.d/apache2 restart
 ```
 
-Ensuite il est possible de démarrer VSCode ou naviguer dans le dossier Web
+Ensuite il est possible de démarrer VSCode ou naviguer dans le dossier Web.
 
 ```bash
+# Navigation dans les fichiers, Sites/ ==> http://localhost/
 cd Sites
+
+# Création du fichier d'information de PHP disponible ici ==> http://localhost/sysinfo.php
+echo '<?php phpinfo(); ?>' | tee sysinfo.php
+
+# Création d'un dossier de projet disponible ici==> http://localhost/site-jeanot-lapin
 mkdir site-jeanot-lapin
+
+# Ouverture de VSCode
 code site-jeanot-lapin
 ```
