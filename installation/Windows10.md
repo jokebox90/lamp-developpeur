@@ -161,14 +161,15 @@ sudo apt install -y \
 # Installe PHP et ses extensions courantes
 sudo apt install -y \
   php7.4-apcu \
+  php7.4-curl \
   php7.4-bcmath \
   php7.4-gd \
   php7.4-gmp \
   php-imagick \
   php7.4-intl \
   php7.4-mysql \
-  php7.4-curl \
   php7.4-mbstring \
+  php-pear \
   php7.4-xdebug \
   php7.4-xml \
   php7.4-xmlrpc \
