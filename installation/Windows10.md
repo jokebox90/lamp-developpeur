@@ -140,3 +140,48 @@ sudo apt install -y \
   whois \
   zip
 ```
+
+## Installer LAMP et PhpMyAdmin avec Git et Vim dans Debian Linux
+
+```bash
+sudo apt install -y \
+  apache2 \
+  imagemagick \
+  libapache2-mod-php7.4 \
+  mariadb-server \
+  mariadb-client
+
+sudo apt install -y \
+  php7.4-apcu \
+  php7.4-bcmath \
+  php7.4-gd \
+  php7.4-gmp \
+  php-imagick \
+  php7.4-intl \
+  php7.4-mysql \
+  php7.4-curl \
+  php7.4-mbstring \
+  php7.4-xdebug \
+  php7.4-xml \
+  php7.4-xmlrpc \
+  php7.4-zip
+```
+
+
+## Démarrer VSCode dans le répertoire Web
+
+Important, cette étape permet de lier le dossier Web avec le répertoire de l'utilisateur.
+
+
+```bash
+sudo ln -s /var/www/html ~/Sites
+sudo chown -Rv $(id -u):$(id -g) Sites/
+```
+
+Ensuite il est possible de démarrer VSCode ou naviguer dans le dossier Web
+
+```bash
+cd Sites
+mkdir site-jeanot-lapin
+code site-jeanot-lapin
+```
