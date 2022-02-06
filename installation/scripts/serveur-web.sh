@@ -25,7 +25,7 @@ case $1 in
     ;;
 
   stop)
-    STATEMENTS
+    stop
     ;;
 
   status)
