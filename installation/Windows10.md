@@ -214,6 +214,7 @@ xdebug.start_with_request = 1
 EOM
 
 sudo /etc/init.d/apache2 restart
+sudo /etc/init.d/mariadb start
 ```
 
 Ensuite il est possible de démarrer VSCode ou naviguer dans le dossier Web.
@@ -225,7 +226,7 @@ cd Sites
 # Création du fichier d'information de PHP disponible ici ==> http://localhost/sysinfo.php
 echo '<?php phpinfo(); ?>' | tee sysinfo.php
 
-# Création d'un dossier de projet disponible ici==> http://localhost/site-jeanot-lapin
+# Création d'un dossier de projet disponible ici ==> http://localhost/site-jeanot-lapin
 mkdir site-jeanot-lapin
 
 # Ouverture de VSCode
