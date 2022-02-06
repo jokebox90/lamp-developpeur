@@ -8,7 +8,8 @@
 4. [Installer Debian Linux pour Windows Subsystem for Linux](#installer-debian-linux-pour-windows-subsystem-for-linux)
 5. [Utiliser Windows Terminal pour toutes vos actions](#utilier-windows-terminal-pour-toutes-vos-actions)
 6. [Mettre à jour Debian Linux](#mettre-à-jour-debian-linux)
-
+7. [Installer LAMP et PhpMyAdmin avec Git et Vim dans Debian Linux](#installer-lamp-et-phpmyadmin-avec-git-et-vim-dans-debian-linux)
+8. [Démarrer VSCode dans le répertoire Web](#démarrer-vscode-dans-le-répertoire-web)
 ## Activer les extensions de virtualisation
 
 Ouvrir Powershell en tant qu'administrateur :
@@ -143,7 +144,13 @@ sudo apt install -y \
 
 ## Installer LAMP et PhpMyAdmin avec Git et Vim dans Debian Linux
 
+Copier-coller les commandes suivantes pour obtenir une installation complète de Linux Apache MySQL PHP.
+
 ```bash
+# Met à jour les informations sur les logiciels
+sudo apt update
+
+# Installe la partie serveur Web et serveur SQL
 sudo apt install -y \
   apache2 \
   imagemagick \
@@ -151,6 +158,7 @@ sudo apt install -y \
   mariadb-server \
   mariadb-client
 
+# Installe PHP et ses extensions courantes
 sudo apt install -y \
   php7.4-apcu \
   php7.4-bcmath \
@@ -165,8 +173,17 @@ sudo apt install -y \
   php7.4-xml \
   php7.4-xmlrpc \
   php7.4-zip
+
+# Installe PhpMyAdmin
+sudo apt install -y phpmyadmin
 ```
 
+En cas d'erreur, copier-coller la commande suivante Pour réinitialiser PhpMyAdmin. Les données de MySQL/MariaDB sont CONSERVEES.
+
+```bash
+# Pour réinitialiser PhpMyAdmin en cas d'erreur
+sudo dpkg-reconfigure -plow phpmyadmin
+```
 
 ## Démarrer VSCode dans le répertoire Web
 
