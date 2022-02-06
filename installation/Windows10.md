@@ -158,10 +158,10 @@ sudo apt install -y \
   mariadb-server \
   mariadb-client
 
-# Démarre le serveur MySQL
+# Démarre le serveur Web
 sudo /etc/init.d/apache2 start
 
-# Démarre le serveur MySQL
+# Démarre le serveur SQL
 sudo /etc/init.d/mariadb start
 
 # Installe PHP et ses extensions courantes
