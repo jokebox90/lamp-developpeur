@@ -74,7 +74,7 @@ choco install -y --force wsl2
 > Note: fermer la fenêtre Debian et démarrer la partie suivante avec Windows Terminal
 ## Utiliser Windows Terminal pour toutes vos actions
 
-Windows Terminal est un point d'accès unique et ergonomique pour gérer le développement en ligne de commande. dispose d'un menu accessible de puis la barre de titre de sa fenêtre pour ouvrir rapidement la console Windows, Powershell et Debian Linux.
+Windows Terminal est un point d'accès unique et ergonomique pour gérer le développement en ligne de commande. Il dispose d'un menu dans la barre de titre de sa fenêtre qui permet d'ouvrir rapidement la console Windows, Powershell et Debian Linux.
 
 Ouvrir Windows Terminal avec l'utilisateur principal (les droits d'administrations ne sont plus nécessaires) :
 
@@ -113,18 +113,27 @@ sudo apt update
 # Installe git et vim
 sudo apt install -y git vim
 
-# Installe d'outils complémentaires (sauvent la vie)
+# Installer des outils complémentaires (sauvent la vie)
 sudo apt install -y \
   apache2-utils \
+  apt-transport-https \
+  build-essential \
   curl \
   dnsutils \
   ftp \
+  gnupg2 \
+  htop \
   iproute2 \
   lsof \
   python3-pip \
   net-tools \
   netcat \
+  nmap \
+  nmon \
+  openssl \
   rsync \
+  ssh \
+  tcpdump \
   tree \
   unzip \
   wget \
