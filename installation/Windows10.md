@@ -158,6 +158,12 @@ sudo apt install -y \
   mariadb-server \
   mariadb-client
 
+# Démarre le serveur MySQL
+sudo /etc/init.d/apache2 start
+
+# Démarre le serveur MySQL
+sudo /etc/init.d/mariadb start
+
 # Installe PHP et ses extensions courantes
 sudo apt install -y \
   php7.4-apcu \
@@ -214,7 +220,6 @@ xdebug.start_with_request = 1
 EOM
 
 sudo /etc/init.d/apache2 restart
-sudo /etc/init.d/mariadb start
 ```
 
 Ensuite il est possible de démarrer VSCode ou naviguer dans le dossier Web.
