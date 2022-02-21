@@ -28,6 +28,10 @@ case $1 in
     stop
     ;;
 
+  restart)
+    stop && start
+    ;;
+
   status)
     status
     ;;
