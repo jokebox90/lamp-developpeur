@@ -87,7 +87,7 @@ sudo apt update
 sudo apt upgrade -y
 ```
 
-### Installer Git un éditeur de texte
+### Installer Git et un éditeur de texte
 
 ```bash
 # Met à jour les informations sur les logiciels
@@ -144,13 +144,6 @@ sudo apt install -y \
 sudo /etc/init.d/apache2 start
 ```
 
-### Création d'un espace de travail pour le Web
-
-> Important ! Cette étape permet de connecter le serveur Web à l'espace de travail.
-
-```bash
-```
-
 ## Installer le serveur SQL MariaDB
 
 ```bash
@@ -172,7 +165,6 @@ sudo /etc/init.d/mariadb start
 
 ```bash
 curl -sL https://packages.sury.org/php/README.txt | sudo bash -
-
 ```
 
 ### Installer PHP 7.4 pour conserver la compatibilité
