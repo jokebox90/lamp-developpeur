@@ -1,79 +1,118 @@
-# MacOS / Apache2 / MariaDB / PHP
+# MacOS Apache2 MariaDB PHP
 
-**Installation et démarrage de MariaDB (serveur MySQL)**
+## Préparer les outils de développement MacOS
 
-Dans le terminal.
+### Xcode
 
-```bash
-# Installation de MariaDB
-brew install mariadb
-
-# Démarrage du serveur MySQL
-mysql.server start
-
-# Active le démarrage automatique
-brew services start mariadb
-```
-
-Dans le terminal, utilisation de la console MySQL :
+Lancer la commande pour installer Xcode.
 
 ```bash
-sudo mysql
+xcode-select --install
 ```
 
-Dans la console MySQL, changement du mot passe administrateur :
-
-```sql
-# Changement du mot passe
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'ici_mon_mot_de_passe';
-
-# Sauvegarde des changements
-FLUSH PRIVILEGES;
-
-# Quitter la console
-exit;
-```
-
-**Installation et démarrage d'Apache2/PHP (serveur Web)**
+### Homebrew
 
 ```bash
-# Démarrage d'Apache2
-sudo apachectl start
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
 
-# Sauvegarde de la configuration
-sudo cp /etc/apache2/httpd.conf /etc/apache2/httpd.conf.bak
+## Installer la plateforme MAMP
 
-# Activation de PHP
-sudo sed -i 's/^#\(LoadModule php7.*\)$/\1/g' /etc/apache2/httpd.conf
+### Serveur d'application : PHP
 
-# Création d'un fichier de test PHP
-echo '<?php phpinfo(); ?>' | sudo tee /Library/WebServer/Documents/sysinfo.php
+Ajouter des sources de paquet supplémentaires pour PHP 7.4 et 8.1 :
 
-# Application des changements
-sudo apachectl restart
+```bash
+sudo brew tap shivammathur/php
+```
+
+Installer les dernières versions stables de PHP :
+
+```bash
+sudo brew install shivammathur/php/php@7.4
+sudo brew install shivammathur/php/php@8.1
+```
+
+Utiliser la dernière version de PHP par défaut :
+
+```bash
+sudo brew link --overwrite --force shivammathur/php/php@8.1
+```
+
+### Serveur SQL: MariaDB
+
+Installer MariaDB avec la commande suivante :
+
+```bash
+sudo brew install mariadb
+```
+
+Démarrer MariaDB avec la commande suivante :
+
+```bash
+sudo brew services start mariadb
+```
+
+Sécuriser un nouvelle installation de MariaDB :
+
+```bash
+sudo mariadb-secure-installation
+```
+
+### Serveur Web: Apache2 (httpd)
+
+S'assurer que les anciennes versions d'apache2 sont désactivées.
+
+```bash
+sudo apachectl stop
+sudo launchctl unload -w /Systems/Library/LaunchDaemons/org.apache.httpd.plist
+```
+
+Installer la dernière version d'Apache2 :
+
+```bash
+sudo brew install httpd
+```
+
+Démarrer Apache2 :
+
+```bash
+sudo brew services start httpd
+```
+
+## Préparer l'espace de travail
+
+Créer un dossier pour lier la configuration dans :
+
+```bash
+mkdir -p $HOME/WebConfig
+```
+
+Attribuer des droits au développeur sur la configuration :
+
+```bash
+sudo chown -R $(id -u):$(id -g) $(brew --prefix)/etc/httpd/.
+sudo chown -R $(id -u):$(id -g) $(brew --prefix)/etc/php/.
+```
+
+Lier les dossiers du serveur Web à l'espace de travail.
+
+```bash
+ln -sf $(brew --prefix)/etc/httpd $HOME/WebConfig/httpd
+ln -sf $(brew --prefix)/etc/php $HOME/WebConfig/php
+```
+
+Avoir les dossiers du serveur Web à disposition :
+
+```bash
+sudo chown -R $(id -u):$(id -g) $(brew --prefix)/var/www/.
+ln -sf $(brew --prefix)/var/www $HOME/Sites
+```
+
+Ecrire un fichier pour vérifier la configuration :
+
+```bash
+echo '<?php phpinfo(); ?>' | tee ~/Sites/sysinfo.php
 ```
 
 > Se rendre sur : http://localhost/sysinfo.php
-
-**Installation de phpMyAdmin: outil de gestion de bases de données**
-
-```bash
-# Utilitaire de téléchargement Wget
-brew install wget
-
-# Téléchargement de l'archive phpMyAdmin
-wget https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-all-languages.tar.gz
-
-# Décompression de l'archive phpMyAdmin
-tar -xzvf phpMyAdmin-5.1.1-all-languages.tar.gz
-
-# Installation de phpMyAdmin dans le dossier qui va bien
-sudo mv phpMyAdmin-5.1.1-all-languages /Library/WebServer/Documents/phpmyadmin
-
-# Ajoute une configuration qui va bien pour MacOS
-sudo sed "s/localhost/127.0.0.1/g" \
-    /Library/WebServer/Documents/phpmyadmin/config.sample.inc.php \
-        | sudo tee /Library/WebServer/Documents/phpmyadmin/config.inc.php
-```
-
-> Se rendre sur : http://localhost/phpmyadmin
