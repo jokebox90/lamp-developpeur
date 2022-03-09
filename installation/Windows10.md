@@ -70,9 +70,12 @@ Ouvrir Windows Terminal avec l'utilisateur principal (les droits d'administratio
 2. Rechercher "windows terminal"
 3. Cliquer sur l'application pour la lancer
 
-## Mettre à jour Debian Linux
+> Note: Garder la fenêtre Windows Terminal sur Debian Linux ouverte pour la suite.
 
-Démarrer Debian à partir du menu de Windows Terminal.
+## Démarrer avec Debian Linux
+
+Démarrer Debian Linux à partir du menu de Windows Terminal.
+### Mettre à jour Debian Linux
 
 Copier-coller les commandes suivantes pour démarrer avec la dernière version stable des logiciels et du système Debian.
 
@@ -84,21 +87,21 @@ sudo apt update
 sudo apt upgrade -y
 ```
 
-> Note: Garder la fenêtre Windows Terminal sur Debian Linux ouverte pour la suite.
-
-## Démarrer avec Git et Vim dans Debian Linux
-
-Installer de Git et d'autres outils utiles au quotidien du développeur.
-
-> Si besoin, démarrer Debian à partir du menu de Windows Terminal.
+### Installer Git un éditeur de texte
 
 ```bash
 # Met à jour les informations sur les logiciels
 sudo apt update
 
 # Installe git et vim
-sudo apt install -y git vim
+sudo apt install -y \
+  git \
+  vim
+```
 
+### Installer des outils Linux de base
+
+```bash
 # Installer des outils complémentaires (sauvent la vie)
 sudo apt install -y \
   apache2-utils \
@@ -127,11 +130,7 @@ sudo apt install -y \
   zip
 ```
 
-## Installer le serveur Web Apache
-
-### Installation d'Apache Web Server
-
-Copier-coller les commandes suivantes pour obtenir une installation complète de Linux Apache MySQL PHP.
+### Installer le serveur Web Apache
 
 ```bash
 # Met à jour les informations sur les logiciels
@@ -150,24 +149,6 @@ sudo /etc/init.d/apache2 start
 > Important ! Cette étape permet de connecter le serveur Web à l'espace de travail.
 
 ```bash
-# Donne des droits complet sur le serveur Web Apache
-sudo chown -R $(id -u):$(id -g) /var/www/html
-sudo cp /etc/apache2/envvars /etc/apache2/envvars.$(date +'%Y-%m-%d')
-sudo sed -i 's/www-data/'$USER'/g' /etc/apache2/envvars
-sudo /etc/init.d/apache2 restart
-
-# Création du lien avec le dossier Web
-ln -s /var/www/html ~/Sites
-tee ~/Sites/index.html <<EOM
-<html>
-<head>
-  <title>Bienvenue sur Apache Web Server!</title>
-</head>
-<body>
-  <h1>Bonjour, $USER</h1>
-</body>
-</html>
-EOM
 ```
 
 ## Installer le serveur SQL MariaDB
@@ -276,13 +257,31 @@ composer create-project phpmyadmin/phpmyadmin --no-cache --no-dev ~/Sites/phpmya
 ## Préparation de l'environnement Debian Fullstack
 
 ```bash
-sudo mkdir -p /var/www/etc
-sudo ln -sf /etc/mysql /var/www/etc/mysql
-sudo ln -sf /etc/php /var/www/etc/php
-sudo ln -sf /etc/apache2 /var/www/etc/apache2
+# Donne des droits complet sur le serveur Web Apache
+sudo chown -R $(id -u):$(id -g) /var/www/html
+sudo cp /etc/apache2/envvars /etc/apache2/envvars.$(date +'%Y-%m-%d')
+sudo sed -i 's/www-data/'$USER'/g' /etc/apache2/envvars
+sudo /etc/init.d/apache2 restart
+
+# Création du lien avec le dossier Web
+ln -s /var/www/html ~/Sites
+tee ~/Sites/index.html <<EOM
+<html>
+<head>
+  <title>Bienvenue sur Apache Web Server!</title>
+</head>
+<body>
+  <h1>Bonjour, $USER</h1>
+</body>
+</html>
+EOM
+
+sudo mkdir -p $HOME/etc
+sudo ln -sf /etc/mysql $HOME/etc/mysql
+sudo ln -sf /etc/php $HOME/etc/php
+sudo ln -sf /etc/apache2 $HOME/etc/apache2
 
 sudo chown -R $(id -u):$(id -g) /etc/mysql/.
 sudo chown -R $(id -u):$(id -g) /etc/php/.
 sudo chown -R $(id -u):$(id -g) /etc/apache2/.
-sudo chown -R $(id -u):$(id -g) /var/www/.
 ```
