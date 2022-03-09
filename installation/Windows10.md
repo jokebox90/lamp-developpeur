@@ -84,8 +84,6 @@ sudo apt update
 sudo apt upgrade -y
 ```
 
-Copier-coller les commandes suivantes pour démarrer avec la dernière version stable des logiciels et du système Debian.
-
 > Note: Garder la fenêtre Windows Terminal sur Debian Linux ouverte pour la suite.
 
 ## Démarrer avec Git et Vim dans Debian Linux
@@ -216,13 +214,13 @@ sudo apt install -y \
   php7.4-intl \
   php7.4-mbstring \
   php7.4-mysql \
+  php7.4-xdebug \
   php7.4-xml \
   php7.4-xmlrpc \
   php7.4-zip \
 ```
 
-### Installer PHP 7.4 pour conserver la compatibilité
-
+### Installer PHP 8.1
 
 ```bash
 sudo apt install -y \
@@ -238,12 +236,10 @@ sudo apt install -y \
   php8.1-intl \
   php8.1-mbstring \
   php8.1-mysql \
+  php8.1-xdebug \
   php8.1-xml \
   php8.1-xmlrpc \
   php8.1-zip
-
-cfg_php_command=$(find /usr/bin -regex '.*php[5-8].[0-9]')
-cfg_php_current=$(php.default --version | head -n1 | awk '{ print $2 }' | awk -F. '{ print $1 "." $2 }')
 
 # Utilise uniquement PHP 8.1 sur Apache
 sudo a2dismod php7.4 && sudo a2enmod php8.1
@@ -255,50 +251,38 @@ sudo update-alternatives --set phar /usr/bin/phar8.1
 sudo update-alternatives --set phar.phar /usr/bin/phar.phar8.1
 
 echo '<?php phpinfo(); ?>' | tee ~/Sites/sysinfo.php
+```
+### Installation de Composer
 
-## Installation du gestionnaire de paquet PHP
+Installation du gestionnaire de paquet PHP.
+
+```bash
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
+
 sudo mv composer.phar /usr/local/bin/composer
+```
 
-# Installe PhpMyAdmin
+## Installation de PhpMyAdmin
+
+Installation de l'outil de gestion de base de données.
+
+```bash
 composer create-project phpmyadmin/phpmyadmin --no-cache --no-dev ~/Sites/phpmyadmin
-
 ```
 
-En cas d'erreur, copier-coller la commande suivante Pour réinitialiser PhpMyAdmin. Les données de MySQL/MariaDB sont CONSERVEES.
+## Préparation de l'environnement Debian Fullstack
 
 ```bash
-# Pour réinitialiser PhpMyAdmin en cas d'erreur
-sudo dpkg-reconfigure -plow phpmyadmin
-```
+sudo mkdir -p /var/www/etc
+sudo ln -sf /etc/mysql /var/www/etc/mysql
+sudo ln -sf /etc/php /var/www/etc/php
+sudo ln -sf /etc/apache2 /var/www/etc/apache2
 
-## Installation de PHP xDebug
-
-```bash
-# Activation de PHP xDebug
-sudo pecl install xdebug
-
-# Active le debugger de PHP
-sudo tee -a /etc/php/8.1/apache2/php.ini <<EOM
-
-[XDebug]
-xdebug.mode = debug,develop
-xdebug.force_display_errors = 1
-xdebug.force_error_reporting = 1
-xdebug.start_with_request = 0
-EOM
-
-sudo /etc/init.d/apache2 restart
-```
-
-Ensuite il est possible de démarrer VSCode ou naviguer dans le dossier Web.
-
-```bash
-# Navigation dans les fichiers, Sites/ ==> http://localhost/
-cd ~/Sites
-
-# Création du fichier d'information de PHP disponible ici ==> http://localhost/sysinfo.php
+sudo chown -R $(id -u):$(id -g) /etc/mysql/.
+sudo chown -R $(id -u):$(id -g) /etc/php/.
+sudo chown -R $(id -u):$(id -g) /etc/apache2/.
+sudo chown -R $(id -u):$(id -g) /var/www/.
 ```
