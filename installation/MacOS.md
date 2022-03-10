@@ -82,6 +82,8 @@ sudo brew services start httpd
 
 ## Préparer l'espace de travail
 
+### Mettre à disposition la configuration
+
 Créer un dossier pour lier la configuration dans :
 
 ```bash
@@ -108,6 +110,31 @@ Avoir les dossiers du serveur Web à disposition :
 sudo chown -R $(id -u):$(id -g) $(brew --prefix)/var/www/.
 ln -sf $(brew --prefix)/var/www $HOME/Sites
 ```
+
+### Configurer le serveur pour l'espace de travail
+
+Appliquer la configuration du serveur Web Apache2 :
+
+> Fichier : ~/WebConfig/httpd/httpd.conf
+
+```text
+LoadModule rewrite_module lib/httpd/modules/mod_rewrite.so
+LoadModule php_module /usr/local/opt/php/lib/httpd/modules/libphp.so
+
+AllowOverride All
+
+Listen 80
+
+ServerName localhost
+
+DirectoryIndex index.php index.html
+
+<FilesMatch \.php$>
+    SetHandler application/x-httpd-php
+</FilesMatch>
+```
+
+## Vérifier l'installation
 
 Ecrire un fichier pour vérifier la configuration :
 
