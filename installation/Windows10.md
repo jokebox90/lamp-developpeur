@@ -1,9 +1,7 @@
-# Installation de Linux Apache MySQL PHP
+# Windows Apache MySQL PHP
 
-[TOC]
-
-
-## Activer les extensions de virtualisation
+## Préconfigurer de Windows
+### Activer les extensions de virtualisation
 
 Ouvrir Powershell en tant qu'administrateur :
 
@@ -268,10 +266,10 @@ tee ~/Sites/index.html <<EOM
 </html>
 EOM
 
-sudo mkdir -p $HOME/etc
-sudo ln -sf /etc/mysql $HOME/etc/mysql
-sudo ln -sf /etc/php $HOME/etc/php
-sudo ln -sf /etc/apache2 $HOME/etc/apache2
+mkdir -p $HOME/WebConfig
+ln -sf /etc/mysql $HOME/WebConfig/mysql
+ln -sf /etc/php $HOME/WebConfig/php
+ln -sf /etc/apache2 $HOME/WebConfig/apache2
 
 sudo chown -R $(id -u):$(id -g) /etc/mysql/.
 sudo chown -R $(id -u):$(id -g) /etc/php/.
